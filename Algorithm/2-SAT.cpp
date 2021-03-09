@@ -16,6 +16,11 @@
 
 /*  scc.cppを貼る  */
 
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
 struct two_sat{
 private:
     int _n;

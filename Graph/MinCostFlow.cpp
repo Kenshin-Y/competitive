@@ -1,13 +1,14 @@
 /*
    @created:2020-9
-   @verified: AOJ GRL_6_B,ALPC-E
+   @verified: AOJ GRL_6_B,ALPC-E, ACL1-C
    @description:
         * O(FElogV)
         * add_edge(from,to,capacity,cost)
         * min_cost_flow(s,t,flow)
         * dijkstra内のPのboolianは直感と逆にしている(priority_queueのため)ので注意
         * 辺の情報:from iはfor(auto e:fl.G[i]){ e.to,e.cap,e.rev }
-        *flow以下:s->t, cost:0 cap:inf
+        * flow以下:s->t, cost:0 cap:inf
+        * 負コスト渡してもOK
 */
 template<typename Tflow,typename  Tcost>
 struct PrimalDual{

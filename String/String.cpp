@@ -13,6 +13,8 @@
 
  */
 
+#include<bits/stdc++.h>
+using namespace std;
 /* Suffix Array */
 template<typename T>
 struct SA{
