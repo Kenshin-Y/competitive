@@ -13,8 +13,10 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-struct InversionCount{
-    struct BIT{
+struct InversionCount
+{
+    struct BIT
+    {
         vector<int> data;
         BIT(int sz){ data.assign(sz+1,0); }
         /* from data[1] to data[x] */

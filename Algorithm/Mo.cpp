@@ -11,6 +11,9 @@
         * add(x):追加操作　del(x):削除操作
 */
 
+#include <bits/stdc++.h>
+using namespace std;
+
 /* ここから実装　*/
 int n,q;
 vector<int>l(q),r(q);

@@ -2,17 +2,17 @@
 
 *Algorithm*  
 
-    Mo, 2-SAT, Doubling, InversionCount  
+    Mo, 2-SAT, Doubling, InversionCount, Kadena, 2次元座圧, TSP(未整備)
 *DataStructure*  
 
-    SegmentTree, LazySegmentTree, Trie, UnionFInd  
+    SegmentTree, LazySegmentTree, Trie, UnionFind  
 *Graph*  
 
-    Dinic, Ford_Fulkerson, MinCostFlow, LCA, Rerooting, Scc  
+    MaxFlow, MinCostFlow, LCA, Rerooting, Scc, TopologicalSort, dijkstra etc
 *Math*  
 
-    Combination, Convolution, FFT, Floorsum, Basic
+    Combination, Convolution, FFT, Floorsum, Partition func, Primefact,Basic, Baby_step Giant_step
 *String*  
 
-    Parse, RollingHash, SuffixArray, Z-algorithm   
+    Parse, RollingHash, SuffixArray, Z-algorithm, LIS etc 
 

@@ -1,4 +1,6 @@
 
+#include <bits/stdc++.h>
+using namespace std;
 
 vector<int> Kadena(vector<int> a){
     vector<int> ret(a.size()); //ret[j]:=max{a[i]+a[i+1]+...+a[j]} for i∈[1,j]

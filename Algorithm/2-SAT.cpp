@@ -14,12 +14,11 @@
         * satisfiable()が実質build()
  */
 
-/*  scc.cppを貼る  */
-
-
-
 #include <bits/stdc++.h>
 using namespace std;
+
+/*  scc.cppを貼る  */
+struct SCC{};
 
 struct two_sat{
 private:

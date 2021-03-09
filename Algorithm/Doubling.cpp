@@ -7,10 +7,13 @@
         return:0からN番目の数字
         0-indexed
  */
+
 #include <bits/stdc++.h>
 using namespace std;
+
 template<typename T>
-int doubling(int st,long long k,vector<int> &a){
+int doubling(int st,long long k,vector<int> &a)
+{
     const int n=(int)a.size();
     int logK=log2(k)+1;
     vector<vector<int>> ret(logK,vector<int>(n));
