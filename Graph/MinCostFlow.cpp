@@ -10,8 +10,14 @@
         * flow以下:s->t, cost:0 cap:inf
         * 負コスト渡してもOK
 */
-template<typename Tflow,typename  Tcost>
-struct PrimalDual{
+#ifndef MINCOSTFLOW
+#define MINCOSTFLOW
+#include <bits/stdc++.h>
+using namespace std;
+
+template<typename Tflow,typename Tcost>
+struct PrimalDual
+{
     struct edge{
         int to,rev;
         Tflow cap;
@@ -24,11 +30,14 @@ struct PrimalDual{
     Tcost INF_cost;
     PrimalDual(int n):G(n),dist(n),potential(n),prevV(n),prevE(n),INF_cost(numeric_limits<Tcost>::max()){}
     
-    void add_edge(int from,int to,Tflow cap,Tcost cost){
+    void add_edge(int from,int to,Tflow cap,Tcost cost)
+    {
         G[from].push_back((edge){to,int(G[to].size()),cap,cost});
         G[to].push_back((edge){from,int(G[from].size()-1),0,-cost});
     }
-    void dijkstra(int s){
+
+    void dijkstra(int s)
+    {
         struct my_P{
             Tcost first;
             int second;
@@ -55,7 +64,9 @@ struct PrimalDual{
             }
         }
     }
-    Tcost min_cost(int s,int t,Tflow f){
+
+    Tcost min_cost(int s,int t,Tflow f)
+    {
         Tcost ret=0;
         fill(potential.begin(),potential.end(),0);
         while(f>0){
@@ -81,3 +92,4 @@ struct PrimalDual{
         return ret;
     }
 };
+#endif // MINCOSTFLOW

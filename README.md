@@ -15,4 +15,3 @@
 *String*  
 
     Parse, RollingHash, SuffixArray, Z-algorithm, LIS etc 
-

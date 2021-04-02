@@ -11,8 +11,15 @@
     * auto merge=[&](T a,T b){return...;};
     * identity:merge
 */
+
+#ifndef REROOTING_ABST
+#define REROOTING_ABST
+#include <bits/stdc++.h>
+using namespace std;
+
 template<typename T>
-struct Rerooting{
+struct Rerooting
+{
     using F=function<T(T,int)>;
     using F2=function<T(T,T)>;
     using Graph=vector<vector<int>>;
@@ -22,20 +29,26 @@ struct Rerooting{
     F f,g;
     F2 merge;
     T identity;
+
     Rerooting(int V_,F f_,F2 merge_,T identity_,F g_=[](T a,int b){return a;}) :V(V_),f(f_),g(g_),merge(merge_),identity(identity_){
         G.resize(V);
         dp.resize(V);
     }
+
     void add_edge(int a,int b){
         G[a].push_back(b);
         G[b].push_back(a);
     }
-    void build(int root=0){
+
+    void build(int root=0)
+    {
         for(int i_=0;i_<V;i_++) dp[i_].resize(G[i_].size());
         dfs1(-1,root);
         dfs2(-1,root,identity);
     }
-    T dfs1(int par_,int v_){
+
+    T dfs1(int par_,int v_)
+    {
         T dp_cum=identity;
         int sz_=(int)G[v_].size();
         for(int i_=0;i_<sz_;i_++){
@@ -45,7 +58,9 @@ struct Rerooting{
         }
         return g(dp_cum,v_);
     }
-    void dfs2(int par_,int v_,T add_){
+
+    void dfs2(int par_,int v_,T add_)
+    {
         int sz_=(int)G[v_].size();
         for(int i_=0;i_<sz_;i_++){
             if(G[v_][i_]==par_){
@@ -66,12 +81,16 @@ struct Rerooting{
             dfs2(v_,G[v_][i_],g(val_,v_));
         }
     }
-    T solve(int v_){
+
+    T solve(int v_)
+    {
         T ans = identity;
         for(int i_=0;i_<G[v_].size();i_++) ans = merge(ans, f(dp[v_][i_], G[v_][i_]));
         return g(ans,v_);
     }
 };
+# endif // REROOTING_ABST
+
 /*
  EDPC V 部分木の個数
  signed main(){

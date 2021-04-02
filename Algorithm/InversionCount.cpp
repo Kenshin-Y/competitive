@@ -4,12 +4,13 @@
               * count2: ARC075-E Meaningful Mean
    @description:
         * O(NlogN)
-        * count: (i,j) s.t. a[i]>a[j],i<j
-        * count2: (i,j) s.t. a[i]>=a[j],i<j
+        * count:  (i,j) s.t. a[i] > a[j] , i<j
+        * count2: (i,j) s.t. a[i] >= a[j], i<j
         * 座圧してBIT
         * long long 渡す
 */
-
+#ifndef INVERSIONCOUNT_CPP
+#define INVERSIONCOUNT_CPP
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -18,9 +19,14 @@ struct InversionCount
     struct BIT
     {
         vector<int> data;
-        BIT(int sz){ data.assign(sz+1,0); }
+        BIT(int sz)
+        {
+            data.assign(sz+1,0);
+        
+        }
         /* from data[1] to data[x] */
-        int sum(int x){
+        int sum(int x)
+        {
             int ret=0;
             while(x>0){
                 ret+=data[x];
@@ -28,59 +34,64 @@ struct InversionCount
             }
             return ret;
         }
-        void add(int x,int val){
+
+        void add(int x,int val)
+        {
             while(x<=int(data.size())){
                 data[x]+=val;
                 x+=(x&-x);
             }
         }
     };
-    vector<int> shrink(vector<long long> a){
+
+    // 座圧
+    vector<int> shrink(vector<long long> a)
+    {
         vector<long long> val=a;
         vector<int> ret(a.size());
+
         sort(val.begin(),val.end());
         val.erase(unique(val.begin(),val.end()),val.end());
+
         for(int i=0;i<int(a.size());i++){
             int idx=int(lower_bound(val.begin(), val.end(), a[i])-val.begin());
             ret[i]=idx+1;
         }
+
         return ret;
     }
-    long long count(vector<long long> a){
-        long long ret=0;
-        vector<int> res=shrink(a);
+
+    long long count(vector<long long> a)
+    {
+        long long ret = 0;
+        vector<int> res = shrink(a);
         BIT bit(int(res.size()+1));
+
         for(int i=0;i<int(res.size());i++){
-            ret+=i-bit.sum(res[i]);
+            ret += i-bit.sum(res[i]);
             bit.add(res[i],1);
         }
         return ret;
     }
-    long long count2(vector<long long> a){
-        long long ret=count(a);
+
+    long long count2(vector<long long> a)
+    {
+        long long ret = count(a);
         sort(a.begin(),a.end());
-        long long num=0;
+        long long num = 0;
+
         for(int i=0;i<int(a.size()-1);i++){
-            if(a[i]!=a[i+1]){
-                ret+=num*(num+1LL)/2LL;
-                num=0;
+            if(a[i] != a[i+1]){
+                ret += num*(num+1LL)/2LL;
+                num = 0;
             }else{
                 num++;
             }
         }
-        ret+=num*(num+1LL)/2LL;
+
+        ret += num*(num+1LL)/2LL;
         return ret;
     }
 };
 
-signed main(){
-    std::cin.tie(nullptr);
-    std::ios_base::sync_with_stdio(false);
-    int n; cin >> n;
-    vector<long long> a(n);
-    for(int i=0;i<n;i++) cin >> a[i];
-    InversionCount inv;
-    cout << inv.count(a) << endl;
-}
-
-
+#endif // INVERSIONCOUNT_CPP

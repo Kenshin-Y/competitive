@@ -11,20 +11,9 @@
         * add(x):追加操作　del(x):削除操作
 */
 
+// todo : 復習
 #include <bits/stdc++.h>
 using namespace std;
-
-/* ここから実装　*/
-int n,q;
-vector<int>l(q),r(q);
-int sq=sqrt(n);
-vector<int> query(q);
-for(int i=0;i<q;i++)query[i]=i;
-
-sort(query.begin(),query.end(),[&](int i,j){
-    if(l[i]/sq!=l[j]/sq) return l[i]<l[j];
-    return r[i]<r[j];
-});
 
 int nl=0,nr=0; //[nl,nr)
 auto add[&](int i){ hoge; };

@@ -8,20 +8,33 @@
     * merge: dp_cumは累積　dは部分木
     * add_root: mergeしたものを利用してdp[v]を計算　端はadd_root(identity)
 */
-//部分木の個数dp[i][j]
 
-struct Rerooting{
+// 例:部分木の個数dp[i][j]
+
+#ifndef REROOTING
+#define REROOTING
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Rerooting
+{
     /*  begin here  */
-    struct DP{
+    struct DP
+    {
         long long dp;
         int num;
         DP(long long dp_,int num_):dp(dp_),num(num_){}
     };
+
     const DP identity=DP(0,0);
-    function<DP(DP,DP)> merge = [](DP dp_cum,DP d) -> DP{
+
+    function<DP(DP,DP)> merge = [](DP dp_cum,DP d) -> DP
+    {
         return DP(dp_cum.dp+d.dp+d.num, dp_cum.num+d.num);
     };
-    function<DP(DP)> add_root = [](DP d) -> DP{
+
+    function<DP(DP)> add_root = [](DP d) -> DP
+    {
         return DP(d.dp,d.num+1);
     };
     /*  end here   */
@@ -33,18 +46,27 @@ struct Rerooting{
     vector<vector<DP>> dp; //dp[i][j]:=from i number j path
     vector<DP> ans;
     Graph G;
-    Rerooting(int N):G(N){
+
+    Rerooting(int N)
+    {
+        G.resize(N);
         dp.resize(N);
         ans.assign(N,identity);
     }
-    void add_edge(int a,int b){
+
+    void add_edge(int a,int b)
+    {
         G[a].push_back({b});
     }
-    void build(){
+
+    void build()
+    {
         dfs(0);
         dfs2(0,identity);
     }
-    DP dfs(int _v,int _par=-1){
+
+    DP dfs(int _v,int _par=-1)
+    {
         DP dp_cum=identity; //累積をとる
         int _sz=(int)G[_v].size();
         dp[_v]=vector<DP>(_sz,identity);
@@ -56,7 +78,9 @@ struct Rerooting{
         }
         return add_root(dp_cum);
     }
-    void dfs2(int _v,const DP& dp_p,int _par=-1){
+
+    void dfs2(int _v,const DP& dp_p,int _par=-1)
+    {
         int _sz=(int)G[_v].size();
         for(int _i=0;_i<_sz;_i++){
             if(G[_v][_i].to==_par) dp[_v][_i]=dp_p;
@@ -75,30 +99,18 @@ struct Rerooting{
             dfs2(_u,add_root(merge(dp_l[_i],dp_r[_i+1])),_v);
         }
     }
-    ll solve(int v){
-        ll res=0;
-        rep(j,dp[v].size()){
-            res+=powmod(2,dp[v][j].dp);
-            res%=MOD;
+    /*   Begin here   */
+    long long solve(int v)
+    {
+        long long res=0;
+        for(int j=0;j<dp[v].size();j++){
+            res += pow(2,dp[v][j].dp);
+            res %= 998244353;
         }
         return res;
     }
+    /*   End here   */
 };
-signed main(){
-    std::cin.tie(nullptr);
-    std::ios_base::sync_with_stdio(false);
-    int n; cin >> n;
-    vector<ll> L(n);
-    rep(i,n) cin >> L[i];
-    Rerooting tree(n);
-    rep(i,n-1){
-        int x,y; cin >> x >> y;
-        x--; y--;
-        tree.add_edge(x, y);
-        tree.add_edge(y, x);
-    }
-    tree.build();
-    rep(i,n) cout << tree.ans[i].dp-1 << endl;
-}
+#endif //REROOTING
 
 

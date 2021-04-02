@@ -1,11 +1,21 @@
+/*
+   @created: 2021-3
+   @verified: todo
+   
+   @description:
+       * todo
+*/
+#ifndef LCA_CPP
+#define LCA_CPP
 #include <bits/stdc++.h>
 using namespace std;
 
-struct RMQ{
-
+struct RMQ
+{
 private:
     int n;
     vector<pair<int,int>> node; // {depth,index}
+
 public:
     void init(vector<pair<int,int>> v)
     {
@@ -16,6 +26,7 @@ public:
         for(int i=0;i<sz;i++) node[n+i-1] = v[i];
         for(int i=n-2;i>=0;i--) node[i] = min(node[2*i+1],node[2*i+2]);
     }
+
     pair<int,int> query(int a,int b,int idx=0,int l=0,int r=-1) // RMQ[a,b)
     {
         if(r<0) r = n;
@@ -28,13 +39,14 @@ public:
 
 };
 
-struct LCA{
-
+struct LCA
+{
 private:
     int n;
     vector<int> EulerTour,idx,depth;
     vector<vector<int>> _G;
     RMQ Rmq;
+
     void dfs(int v,int pre,int dep) // Euler Tour を取る
     {
         idx[v] = (int)EulerTour.size(); // 最後に訪れた場所
@@ -49,7 +61,8 @@ private:
     }
 
 public:
-    LCA(vector<vector<int>> G):_G(G){
+    LCA(vector<vector<int>> G):_G(G)
+    {
         n = (int)G.size();
         idx.resize(2*n-2);
         depth.resize(2*n-2);
@@ -66,36 +79,17 @@ public:
         }
         Rmq.init(v);
     }
+
     int lca(int u,int v)
     {
         return EulerTour[Rmq.query(min(idx[u],idx[v]),max(idx[u],idx[v])+1).second];
     }
+
     int dist(int u,int v)
     {
         int lc=lca(u,v);
         return depth[u]+depth[v]-2*depth[lc];
     }
-};
 
-signed main()
-{
-    std::cin.tie(nullptr);
-    std::ios_base::sync_with_stdio(false);
-    int n; cin >> n;
-    vector<vector<int>> G(n);
-    rep(i,n-1){
-        int x,y; cin >> x >> y;
-        x--; y--;
-        G[x].pb(y);
-        G[y].pb(x);
-    }
-    LCA lca(G);
-    int q; cin >> q;
-    while(q--){
-        int a,b; cin >> a >> b;
-        a--; b--;
-        cout <<  1+lca.dist(a,b) << endl;
-    }
-    return 0;
-}
-// g++ main.cpp -o a.out && ./a.out
+};
+#endif // LCA_CPP

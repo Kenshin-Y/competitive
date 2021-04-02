@@ -2,15 +2,18 @@
     @ created : 2020-21
     @ verified : ARC-042 D あまり
     @ description:
+        * 離散対数　Baby-step Giant-step, O(sqrt(P)logP)
         * X^k = Y mod P なるkを求める
         * p = sqrt(P)としX^{p-1}まで求めておく
         * R = X^{-p}を計算し、a=0からY*R^a = X^b modPなるbが見つかるまで計算する
-        * O(sqrt(P)logP)
  */
+#ifndef MODLOG
+#define MODLOG
 #include <bits/stdc++.h>
 using namespace std;
 
-long long modlog(long long x,long long y,long long MOD){
+long long modlog(long long x,long long y,long long MOD)
+{
     x %= MOD;
     y %= MOD;
 
@@ -39,3 +42,4 @@ long long modlog(long long x,long long y,long long MOD){
     }
     return -1;
 }
+#endif // MODLOG

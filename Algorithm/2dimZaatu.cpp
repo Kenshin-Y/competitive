@@ -1,17 +1,17 @@
 /*
     @created: 2020-8
-    @verified: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_4_A
+    @verified: AOJ DSL_4_A
     @description:
         * 元の座標に紐付けする(id,val)の組を持っておく. sort -> earse -> lower_bound で実現可能.
         * 二次元imosとかで色々応用できる.
  */
 
-/*   Sample Code  DSL   */
+/*   Sample Code   */
 
 #include<bits/stdc++.h>
 using namespace std;
 
-int main()
+signed main()
 {
     int n;
     vector<long long> x,y;

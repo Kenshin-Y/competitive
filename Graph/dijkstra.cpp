@@ -1,3 +1,5 @@
+// あとで整備する　dijkstra, BellmanFord, WarshallFloyd全部やってない　うける
+
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long

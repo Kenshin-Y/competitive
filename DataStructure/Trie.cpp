@@ -10,6 +10,8 @@
        * common: prefixの共有個数
        * insert(word,idx), search(s), start_with(s), count:number of words, size:prefix
 */
+#ifndef TRIE
+#define TRIE
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -31,7 +33,9 @@ struct Trie{
     Trie():root(-1){
         nodes.push_back(Node(root));
     }
-    void insert(const string &word,int word_id){
+
+    void insert(const string &word,int word_id)
+    {
         int node_id=0;
         for(int i_=0;i_<(int)word.size();i_++){
             int c=(int)(word[i_]-base);
@@ -46,10 +50,14 @@ struct Trie{
         ++nodes[node_id].common;
         nodes[node_id].str_id.push_back(word_id);
     }
-    void insert(const string &word){
+
+    void insert(const string &word)
+    {
         insert(word,nodes[0].common);
     }
-    int search(const string &word){
+
+    int search(const string &word)
+    {
         int node_id=0;
         for(int i_=0;i_<(int)word.size();i_++){
             int c=(int)(word[i_]-base);
@@ -60,7 +68,9 @@ struct Trie{
             return nodes[node_id].str_id.size() > 0;
         }
     }
-    int find(const string &word){
+
+    int find(const string &word)
+    {
         int pos=0;
         for(char x:word) {
             int c=(int)(x-base);
@@ -68,17 +78,25 @@ struct Trie{
         }
         return pos;
     }
-    bool start_with(const string &prefix) {
+
+    bool start_with(const string &prefix)
+    {
         return search(prefix,true);
     }
-    int count()const{
+
+    int count()const
+    {
         return (nodes[0].common);
     }
-    int size()const{
+
+    int size()const
+    {
         return ((int)nodes.size());
     }
-    /* その他メソッド */
-    void solve(){
+
+    /*   Begin here   */
+    void solve()
+    {
         for(int pos=(int)nodes.size()-1;pos>=0;pos--){ //葉から見る
             auto &node=nodes[pos];
             for(int a=0;a<26;a++){
@@ -92,7 +110,11 @@ struct Trie{
             if(node.c!=-1) node.cnt[node.c] = node.common;
         }
     }
+    /*   End here   */
 };
+
+#endif // TRIE
+
 /* AGC047-B First Second 
 signed main(){
     std::cin.tie(nullptr);

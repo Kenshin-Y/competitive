@@ -7,17 +7,18 @@
             * SA<string> sa(s,SA_IS(s));
             * sa.sa[i]:=i番目のsuffixのid : sa.sa[0]='$'なので実装に気を付ける sa.sa[1]からとる
             * sa.lcp[i]:=lcp(s[sa[i]:],s[sa[i+1]:]) こっちは0-indexed
-        * Z-algorithm
-            * O(N)
-            * SとS[i:]のLCP配列
+*/
 
- */
+// todo : 理解(これ何？)
 
-#include<bits/stdc++.h>
+#ifndef SA_IS_CPP
+#define SA_IS_CPP
+#include <bits/stdc++.h>
 using namespace std;
-/* Suffix Array */
+
 template<typename T>
-struct SA{
+struct SA
+{
     T s;
     vector<int> sa,rsa,lcp;
     SA(){}
@@ -37,8 +38,10 @@ struct SA{
         }
     }
 };
+
 template<typename T>
-vector<int> SA_IS(T s,int upper=200){
+vector<int> SA_IS(T s,int upper=200)
+{
     int sz=(int)s.size();
     vector<int> sa(sz+1);
     if(sz==0) return sa;
@@ -113,20 +116,5 @@ vector<int> SA_IS(T s,int upper=200){
     }
     return sa;
 };
-/* Z-algorithm */
-vector<int> Zalgo(string v){
-    int sz=(int)v.size();
-    vector<int> ret(sz,0);
-    int idx=0;
-    for(int i=1;i<sz;i++){
-        if(i+ret[i-idx]<idx+ret[idx]) ret[i]=ret[i-idx];
-        else{
-            int j=max(0,idx+ret[idx]-i);
-            while(i+j<sz && v[j]==v[i+j]) j++;
-            ret[i]=j;
-            idx=i;
-        }
-    }
-    ret[0]=sz;
-    return ret;
-}
+
+#endif // SA_IS_CPP

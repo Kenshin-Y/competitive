@@ -1,16 +1,23 @@
 /*
     @created:2019-8
-    @vefified: fin
+    @vefified: いろいろ
     @description:
-        * Fermatの小定理: a^(p-1)=1 mod p　なので、a^(p-2)=a^(-1) mod p　を利用し逆元計算する
+        * Fermatの小定理: a^(p-1)=1 mod p　なので、a^(p-2)=a^(-1) mod p　を利用し逆元計算できる
         * a^(-1)= -(p%a)^(-1) * (p/a) mod p によりO(1)で計算可能 (p/a)は商なので注意
-        * COMinit()
+        * COMinit() しなさい
  */
 
+#ifndef COMBINATION
+#define COMBINATION
+#include <bits/stdc++.h>
+using namespace std;
+
 const long long MOD = 1e9+7;
-const int MAX = 1001001;
+const int MAX = 1e7;
 long long fac[MAX],finv[MAX],inv[MAX];
-void COMinit(){
+
+void COMinit()
+{
     fac[0]=fac[1]=1;
     finv[0]=finv[1]=1;
     inv[1]=1;
@@ -20,8 +27,11 @@ void COMinit(){
         finv[i]=finv[i-1]*inv[i] % MOD;
     }
 }
-long long COM(int n,int k){
+long long COM(int n,int k)
+{
     if(n<k) return 0;
     if(n<0 || k<0) return 0;
     return fac[n]*(finv[k]*finv[n-k] % MOD) % MOD;
 }
+
+#endif // COMBINATION

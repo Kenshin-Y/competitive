@@ -10,12 +10,19 @@
         vector<double> ans=FFT::multiply(f,g);
         f.size()<g.size()
  */
-#include <complex>
+#ifndef FFT_CPP
+#define FFT_CPP
+#include <bits/stdc++.h>
+using namespace std;
+
 typedef complex<double> Complex;
 const double PI = acos(-1);
-struct FFT{
+
+struct FFT
+{
 private:
-    static void dft(vector<Complex>& func,int inverse){
+    static void dft(vector<Complex>& func,int inverse)
+    {
         int sz=(int)func.size();
         if(sz==1) return;
         vector<Complex> f0,f1;
@@ -34,7 +41,8 @@ private:
     }
 public:
     template<typename T>
-    static vector<double> multiply(vector<T> f,vector<T> g){
+    static vector<double> multiply(vector<T> f,vector<T> g)
+    {
         if(f.size()<g.size()) std::swap(f,g);
         int sz=1;
         vector<Complex> nf,ng;
@@ -54,3 +62,4 @@ public:
         return ret;
     }
 };
+#endif // FFT_CPP

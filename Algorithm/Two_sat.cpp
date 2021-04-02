@@ -1,22 +1,26 @@
 /*
-    @created : 2020-9
-    @updated : 2021-3
-    @verifyed : ALPC-G
+    @created: 2020-9
+    @verified: ALPC
     @description:
-        * Strongly connected component O(V+E)
-        * Args : typename T SCC(T)
-        * func : SCC.build(vector<vector<int>> v)
+        * 2-SAT O(N)
+        * 変数x[0],x[1],...,x[n-1]に対し, && (x[i]==f[i] || x[j]==f[j])　を満たす変数の割り当て
+        * a v b を (¬a→b) ^ (¬b→a)と書き換えて, 全体を^にするとグラフになる. 強連結成分内の真偽値は全て同じ.
+        * DAGにした後, x → ¬x みたいな辺は x=false で ¬x → x　みたいな辺は x=true になる
+        * 実装は 2*i+(f?0:1) -> 2*j+(g?1:0), 2*j+(g?0:1) -> 2*i+(f?1:0)) 
+        * Usage : 
+            vector<vector<int>> v(2*n)
+            auto add_E=[&](int x_i,bool x_f,int x_j,bool x_g){
+                v[2*x_i+(x_f?0:1)].push_back(2*x_j+(x_g?1:0));
+                v[2*x_j+(x_g?0:1)].push_back(2*x_i+(x_f?1:0));
+            };
+        * satisfiable()が実質build()
+*/
 
-        * dfsでorderとって番号をつける。枝を逆にしてorderの降順にrdfs : 小さいorderには行けて、逆辺貼ってもいけるやろの気持ち
-        * scc[i]でiが含まれる成分番号 scc[i]の昇順に塊としてトポロジカルソートされている
- */
-
-#ifndef SCC_CPP
-#define SCC_CPP
+#ifndef TWO_SAT
+#define TWO_SAT
 #include <bits/stdc++.h>
 using namespace std;
 
-// todo: verify
 template<typename T>
 struct SCC
 {
@@ -87,4 +91,42 @@ struct SCC
     }
     
 };
-#endif // SCC_CPP
+
+struct two_sat
+{
+private:
+    int _n;
+    vector<bool> _answer;
+    vector<vector<int>> _v;
+
+public:
+    two_sat(){
+        _n = 0;
+    }
+    two_sat(vector<vector<int>> &v)
+    {
+        int sz = (int)v.size();
+        _n = sz;
+        _answer.resize(sz);
+        _v = v;
+    }
+
+    bool satisfiable()
+    {
+        vector<vector<int>> hoge;
+        SCC<vector<vector<int>>> scc(_v);
+        scc.build(hoge);
+        for(int i=0;2*i+1<_n;i++){
+            if(scc[2*i]==scc[2*i+1]) return false; // x と ¬x が同じ連結成分に属している場合
+            _answer[i] = (scc[2*i+1] > scc[2*i]);  // ¬x -> x の場合はtrue
+        }
+        return true;
+    }
+
+    vector<bool> answer()
+    {
+        return _answer;
+    }
+};
+
+#endif // TWO_SAT

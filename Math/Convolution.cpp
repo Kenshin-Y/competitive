@@ -2,12 +2,21 @@
     @created:2020-9
     @verifyed:
     @description:
-        O(NlogN)
-        A = {a_0,a_1,...,a_n}, B = {b_0,b_1,...,b_n}
-        C_k = Σ(i+j=k mod n) a_i * b_j
- */
+        * O(NlogN)
+        * A = {a_0,a_1,...,a_n}, B = {b_0,b_1,...,b_n}
+        * C_k = Σ(i+j=k mod n) a_i * b_j
+        * usage : vector<ModInt> ans = NTT::multiply(a,b);
+*/
+
+#ifndef CONVOLUTION
+#define CONVOLUTION
+#include <bits/stdc++.h>
+using namespace std;
+
+// todo: よくわかってないから書き直す. modintを整備して分割する
 template<typename T>
-T mypow(T a, ll b) {
+T mypow(T a, long long b)
+{
     T res(1);
     while(b){
         if(b&1)res*=a;
@@ -16,8 +25,10 @@ T mypow(T a, ll b) {
     }
     return res;
 }
-class ModInt {
-    ll value;
+struct ModInt
+{
+    long long value;
+
 public:
     static const unsigned int modulo;
     ModInt() : value(0) {}
@@ -67,10 +78,13 @@ public:
     template<typename T> ModInt operator/(const T& rhs)const { return ModInt(*this) /= rhs; }
     template<typename T> ModInt& operator/=(const T& rhs) { return operator/=(ModInt(rhs)); }
 };
+
 const unsigned int ModInt::modulo=998244353;
-class NTT{
+struct NTT
+{
 private:
-    static void dft(vector<ModInt>& a,bool rev){
+    static void dft(vector<ModInt>& a,bool rev)
+    {
         int sz=(int)a.size();
         if(sz==1) return;
         ModInt zeta;
@@ -88,9 +102,11 @@ private:
             std::swap(a,b);
         }
     }
+
 public:
     template<typename T>
-    static vector<ModInt> multiply(vector<T> &f,vector<T> &g){
+    static vector<ModInt> multiply(vector<T> &f,vector<T> &g)
+    {
         if(f.size()<g.size())std::swap(f,g);
         vector<ModInt> nf,ng;
         int sz=1;
@@ -111,17 +127,4 @@ public:
     }
 };
 
-signed main(){
-    std::cin.tie(nullptr);
-    std::ios_base::sync_with_stdio(false);
-    int n,m; cin >> n >> m;
-    vector<int> a(n),b(m);
-    rep(i,n) cin >> a[i];
-    rep(i,m) cin >> b[i];
-    vector<ModInt> ans=NTT::multiply(a,b);
-    rep(i,n+m){
-        cout << ans[i];
-        if(i!=n+m-1) cout << " ";
-    }
-    cout << endl;
-}
+#endif // CONVOLUTION

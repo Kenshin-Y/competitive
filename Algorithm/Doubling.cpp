@@ -6,8 +6,12 @@
         ret[i][j]:=jの2^i回先のもの 一回先さえ求めれば良い
         return:0からN番目の数字
         0-indexed
- */
+*/
 
+// todo : 理解（忘れた）
+
+#ifndef DOUBLING
+#define DOUBLING
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -29,3 +33,4 @@ int doubling(int st,long long k,vector<int> &a)
     }
     return st;
 }
+#endif // DOUBLING
