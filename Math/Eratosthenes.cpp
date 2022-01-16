@@ -2,9 +2,10 @@
     @created:2020-9
     @verified: ABC177-E Coprime
     @description:
-        * 前処理:O(N) query:O(logN)
+        * 前処理:O(NloglogN) query:O(logN)
         * minFact[n]:nの最小の素因数　これで割って降りていく
         * preprocess() しなさい
+        * 素因数分解のクエリが大量に来るときに使う
  */
 #ifndef ERATOSTHENES
 #define ERATOSTHENES

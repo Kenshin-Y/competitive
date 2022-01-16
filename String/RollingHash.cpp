@@ -19,12 +19,14 @@ struct RollingHash
     static const long long base1=1007LL,base2=2009LL;
     static const long long MOD1=1000000007LL,MOD2=1000000009LL;
     vector<long long> hash1,hash2,pow1,pow2;
+    string S;
 
     RollingHash(const string &s /* ここを変える vector<int> とか*/)
     {
         int sz=(int)s.size();
         hash1.assign(sz+1,0); hash2.assign(sz+1,0);
         pow1.assign(sz+1,1); pow2.assign(sz+1,1);
+        S = s;
         for(int i=0;i<sz;i++){
             hash1[i+1]=(hash1[i]*base1+s[i]) % MOD1;
             hash2[i+1]=(hash2[i]*base2+s[i]) % MOD2;
@@ -45,7 +47,7 @@ struct RollingHash
 
     inline int lcp(const RollingHash &t,int a,int b)const
     {
-        int len=min((int)hash1.size()-a,(int)hash2.size()-b);
+        int len=min(S.size()-a+1,t.S.size()-b+1); // koko
         int ok=0,ng=len;
         while(ng-ok>1){
             int mid=(ng+ok)>>1;
