@@ -2,7 +2,7 @@
     @created: 2020-8
     @verified:
     @description:
-        全体のサイズMとして,N番目を求めるのに前処理O(MlogM)クエリO(logN)
+        全体のサイズMとして, N番目を求めるのに前処理O(MlogM)クエリO(logN)
         ret[i][j]:=jの2^i回先のもの 一回先さえ求めれば良い
         return:0からN番目の数字
         0-indexed
