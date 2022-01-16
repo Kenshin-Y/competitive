@@ -56,15 +56,24 @@ long long my_pow(long long x, long long n)
     return ret;
 }
 
-// ax + by = 1
+// ax + by = 1 なるa,bを求める
+
+/*
+    ax + by = 1;
+    (bm+p)x + by = 1;
+    px + b(mx+y) = 1;
+    extgcd(b,p,y,x), y = y-mx
+    -> extgcd(b,a%b,y,x), y -= (a/b)*x;
+*/
 int extgcd(int a, int b, int &x, int &y)
 {
     int d=a;
     if(b!=0){
-        d=extgcd(b,a%b,y,x);
+        d = extgcd(b,a%b,y,x);
         y -= (a/b)*x;
     }else{
         x=1; y=0;
+        // ax = 1, a = 1;
     }
     return d;
 }
