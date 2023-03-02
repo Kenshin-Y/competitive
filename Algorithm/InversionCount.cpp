@@ -1,32 +1,30 @@
 /*
-   @created:2020-10
-   @verifyed: * count1: Speed Run 001 J
-              * count2: ARC075-E Meaningful Mean
-   @description:
+    @ created: 2020-10
+    @ updated: 2023-3
+    @ verified: count1: Speed Run 001 J
+                count2: ARC075-E Meaningful Mean
+    @ description:
+        * 
+        * 
+    @ usage:
         * O(NlogN)
         * count:  (i,j) s.t. a[i] > a[j] , i<j
         * count2: (i,j) s.t. a[i] >= a[j], i<j
         * 座圧してBIT
         * long long 渡す
 */
-#ifndef INVERSIONCOUNT_CPP
-#define INVERSIONCOUNT_CPP
 #include<bits/stdc++.h>
 using namespace std;
 
-struct InversionCount
-{
-    struct BIT
-    {
+struct InversionCount{
+
+    struct BIT{
         vector<int> data;
-        BIT(int sz)
-        {
+        BIT(int sz){
             data.assign(sz+1,0);
-        
         }
         /* from data[1] to data[x] */
-        int sum(int x)
-        {
+        int sum(int x){
             int ret=0;
             while(x>0){
                 ret+=data[x];
@@ -34,9 +32,7 @@ struct InversionCount
             }
             return ret;
         }
-
-        void add(int x,int val)
-        {
+        void add(int x,int val){
             while(x<=int(data.size())){
                 data[x]+=val;
                 x+=(x&-x);
@@ -93,5 +89,3 @@ struct InversionCount
         return ret;
     }
 };
-
-#endif // INVERSIONCOUNT_CPP

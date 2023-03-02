@@ -1,23 +1,23 @@
 /*
-   @created: 2020-9
-   @verified: AOJ DSL
-   @description:
-    * node: f: T×T -> T, g: T×E -> T
-    * lazy: h: E×E -> E
-    * p(a,b) := g(a,a,a,...,a) E×N -> E
-    * 内部実装は1-indexed 実装は0-indexedでOK
-    * 単位元はg,hについて
-    * int sz=1; while(sz<n) sz*=2;
-    * vector<T> v(sz);
-    * LazySegmentTree<T,E> lst(f,g,h,idT,idE);
-    * lst.build(v);
-    *
+    @created: 2020-9
+    @ updated: 2022-3
+    @verified: AOJ DSL
+    @description:
+        * node: f: T×T -> T, g: T×E -> T
+        * lazy: h: E×E -> E
+        * p(a,b) := g(a,a,a,...,a) E×N -> E
+        * 内部実装は1-indexed 実装は0-indexedでOK
+        * 単位元はg,hについて
+        * int sz=1; while(sz<n) sz*=2;
+        * vector<T> v(sz);
+        * LazySegmentTree<T,E> lst(f,g,h,idT,idE);
+        * lst.build(v);
+        *
 */
-#ifndef LAZYSEGMENTTREE
-#define LAZYSEGMENTTREE
 #include <bits/stdc++.h>
 using namespace std;
 
+// code from here
 template<typename T,typename E>
 struct LazySegmentTree
 {
