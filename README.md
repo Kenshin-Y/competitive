@@ -1,17 +1,23 @@
-# competitive-programming
+# 競技プログラミング用ライブラリ
 
-*Algorithm*  
+## 註：先頭文字が小文字のものは未整備
+## ディレクトリ構成
 
-    Mo, 2-SAT, Doubling, InversionCount, Kadena, 2次元座圧, TSP(未整備)
-*DataStructure*  
+### Algorithm
+座標圧縮，ダブリング，転倒数，最長増加列，（Mo，TSP，2-SAT）
 
-    SegmentTree, LazySegmentTree, Trie, UnionFind  
-*Graph*  
+### DataStructure
+BIT，セグ木，（遅延セグ木），trie木，UnionFind
 
-    MaxFlow, MinCostFlow, LCA, Rerooting, Scc, TopologicalSort, dijkstra etc
-*Math*  
+### Graph
+最短距離系，フロー系，全方位木DP，トポソ，強連結成分分解
 
-    Combination, Convolution, FFT, Floorsum, Partition func, Primefact,Basic, Baby_step Giant_step
-*String*  
+### Marathon
+焼きなましのサンプル
 
-    Parse, RollingHash, SuffixArray, Z-algorithm, LIS etc 
+### Math
+基本，組み合わせ，エラトステネスの篩，FFT，離散対数，メビウス変換，分割数
+
+### String
+編集距離，最長共通部分列，パーサ，ロリハ，Z-algorithm，SA-IS（最長共通接頭辞）
+

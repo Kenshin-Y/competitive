@@ -1,7 +1,8 @@
 /*
-    @created: 2020-8
-    @verified: Atcoder Beginers Contest 174-F Range Set query
-    @description:
+    @ created: 2020-8
+    @ updated: 
+    @ verified: Atcoder Beginers Contest 174-F Range Set query
+    @ description:
         * Mo's algorithm
         * クエリの処理順を工夫する [l,mid)と[mid,r)をマージできない（できるならセグ木でいい）
         * 区間の伸縮ができる場合に使える
