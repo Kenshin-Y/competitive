@@ -34,3 +34,4 @@ struct Unionfind{
     int size(int x){
         return -data[root(x)];
     }
+};
