@@ -3,14 +3,14 @@
     @ updated: 2023-3
     @ verified: ABC167-D Teleporter
     @ description:
-        * 全体の要素数が N 個あって，K ステップ先の要素が O(K) で求まるとき，
-        * 前処理 O(NlogK)，クエリ O(logK) で処理できる．
-        * 実装方針として，それぞれの要素について 1 個先の要素が何か記録
-        * 前の結果を利用し，それぞれの要素について 2 個先の要素が何か記録
-        * 前の結果を利用し，それぞれの要素について 4 個先の要素が何か記録
-        * 前の結果を利用し，それぞれの要素について 8 個先の要素が何か記録 ...
+        * 全体の要素数が N 個あって，K ステップ先の要素が O(K) で求まるとき,，
+        * 前処理 O(NlogK)，クエリ O(logK) で K ステップ先の要素がわかる．
+        * 実装方針として，各要素について 1 個先の要素が何か記録 (doubling[0][k])
+        * 前の結果を利用し，各要素について 2 個先の要素が何か記録 (doubling[1][k])
+        * 前の結果を利用し，各要素について 4 個先の要素が何か記録 (doubling[2][k])
+        * 前の結果を利用し，各要素について 8 個先の要素が何か記録 ...
+        * T ステップ先を求めるときは，T を二進展開してシミュレーションすればよい．
 */
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -19,10 +19,9 @@ int main(){
     int n; long long K;
     cin >> n >> K;
     vector<int> a(n);
-    for(int i=0;i<n;i++){
-        cin >> a[i];
-        a[i]--;
-    }
+    for(int i=0;i<n;i++){cin >> a[i]; a[i]--;}
+
+    // Code from here
     int logK=1;
     while((1LL<<logK) <= K) logK++;
 
@@ -36,17 +35,10 @@ int main(){
         }
     }
 
-    // K ステップ先を見る．二進数展開．
+    // 二進展開して K ステップ先を求める．
     int now = 0;
     for (int bit=0;bit<logK;bit++){
         if((1LL<<bit)&K) now = doubling[bit][now];
     }
     cout << now + 1 << endl;
 }
-
-// 例えばK=19なら，logK=5，二進数表記で 10011 のため，1+2+16 ステップ進めばよいことがわかる．
-// now = doubling[0][now] K=9
-// now = doubling[1][now] K=4
-// skip K=2
-// skip K=1
-// now = doubling[4][now] K=0

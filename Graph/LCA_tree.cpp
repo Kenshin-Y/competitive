@@ -1,12 +1,13 @@
 /*
    @ created: 2021-3
-   @ updated:  2023-3
-   @ verified: todo
+   @ updated: 2023-3
+   @ verified: ABC294-G
    
    @ description:
-       * オイラーツアーを辿って，木の共通祖先(LCA)をO(logN)で求めることができる．
+       * 木の共通祖先(LCA)をO(logN)で求めることができる．
        * LCAを用いると木の2点間の距離がわかる．d(u)+d(v)-2*d(lca). 
        * 辺に重みを追加したいときは適宜関数を追加すること．
+       * オイラーツアーの配列に深さを持っておけば，lca(u,v)は[u,v]間の深さの最小値．
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -66,22 +67,22 @@ struct Tree_dist{
             depth.resize(2*size-2);
             euler_tour.reserve(2*size-2);
             fill(idx.begin(),idx.end(),-1);
-            vector<pair<int,int>> v(2*size-2);
+            vector<pair<int,int>> depth_and_index(2*size-2);
             for(int i=0;i<size;i++){
                 if(idx[i]<0){
                     dfs(i,-1,0);
                 }
             }
             for(int i=0;i<2*size-2;i++){
-                v[i] = {depth[euler_tour[i]],i};
+                depth_and_index[i] = {depth[euler_tour[i]],i};
             }
-            rm_tree.init(v);
+            rm_tree.init(depth_and_index);
         }
-        // lca
+        // 最近共通祖先
         int lca(int u, int v){
             return euler_tour[rm_tree.query(min(idx[u],idx[v]), max(idx[u],idx[v]+1)).second];
         }
-        // dist
+        // 2点間の距離
         int dist(int u, int v){
             int lc = lca(u,v);
             return depth[u]+depth[v]-2*depth[lc];
