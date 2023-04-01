@@ -6,6 +6,7 @@
         * 一点更新区間取得 (Segment Tree)
         * データ型 (int, long long) と 演算の単位元を渡す．(gcd(a,b)ならidentity=0)
         * **merge の式を適宜書き換えるのを忘れない．**
+        * クエリは**片開区間なので注意**
     @ usage
         * 宣言: int n; vector<int> v(n); SegmentTree<int> seg(v, id);
         * 更新：seg.update(i, val)

@@ -33,7 +33,7 @@ vector<int> LIS(vector<int> v){
 }
 
 // 長さのみ返すLIS
-vector<int> LIS(vector<int> v){
+int LIS(vector<int> v){
     int sz = (int)v.size();
     vector<int> dp;
     for(int i=0;i<sz;i++){
@@ -44,5 +44,5 @@ vector<int> LIS(vector<int> v){
             dp[p] = v[i];
         }
     }
-    return dp.size();
+    return (int)dp.size();
 }
