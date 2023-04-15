@@ -14,6 +14,7 @@
 using namespace std;
 
 signed main()
+
 {
     int n; // 要素数
     vector<long long> x(n);
@@ -22,9 +23,11 @@ signed main()
         cin >> x[i];
         val.push_back(x[i]);
     }
-    sort(val.begin(),val.end());
-    val.erase(unique(val.begin(), val.end(), val.end()));
+    sort(val.begin(), val.end());
+    val.erase(unique(val.begin(), val.end()), val.end());
     for(int i=0;i<n;i++){
-        x[i] = (int)(lower_bound(val.begin(), val.end(), x[i]) - x.begin());
+        x[i] = (int)(lower_bound(val.begin(), val.end(), x[i]) - val.begin());
     }
+    ll ans=0;
+
 }
